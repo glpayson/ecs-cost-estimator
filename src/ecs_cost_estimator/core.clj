@@ -6,8 +6,9 @@
 (defn- tasks-per-instance
   [req-vcpus req-mem instance-vcpus instance-mem]
   (int
-    (min (Math/floor (/ instance-vcpus req-vcpus))
-         (Math/floor (/ instance-mem req-mem)))))
+    (Math/floor
+      (min (/ instance-vcpus req-vcpus)
+           (/ instance-mem req-mem)))))
 
 (defn- cost-month
   [num-tasks]
