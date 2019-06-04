@@ -12,7 +12,8 @@
         (.get % "module")
         (.get % "ecs-service")
         (assoc (into {} %) "key" "value")
-        (keywordize-keys %)))
+        (keywordize-keys %)
+        (cske/transform-keys csk/->kebab-case-keyword %)))
 
 (defn- string-to-gbs
   [str]
@@ -22,8 +23,7 @@
   "Parse relevant fields from an ECS Terraform file"
   [filename]
   (as-> (parse-ecs-specs filename) %
-        (select-keys % [:application :memory :cpu :min_capacity :max_capacity])
-        (cske/transform-keys csk/->kebab-case-keyword %)
+        (select-keys % [:application :memory :cpu :min-capacity :max-capacity])
         (update % :memory #(string-to-gbs %))
         (update % :cpu #(string-to-gbs %))
         (update % :min-capacity #(Integer/parseInt %))
