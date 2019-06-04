@@ -1,0 +1,5 @@
+{:m4.4xlarge {:vcpus  16
+              :memory 64
+              :cost   {:unreserved 0.8
+                       :reserved   {:standard    {:one-year {:no-upfront 0.496}}
+                                    :convertible {:one-year {:no-upfront 0.57}}}}}}
