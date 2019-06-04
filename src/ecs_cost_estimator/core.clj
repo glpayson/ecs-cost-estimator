@@ -11,16 +11,16 @@
            (/ instance-mem req-mem)))))
 
 (defn- cost-month
-  [num-tasks]
-  (* ecs/standard-cost-month (Math/ceil num-tasks)))
+  [capacity tasks-per-instance]
+  (* ecs/standard-cost-month (Math/ceil (/ capacity tasks-per-instance))))
 
 (defn- add-costs
   [{:keys [vcpus, memory-gb, min-capacity, max-capacity] :as service}]
   (let [tasks-per-instance
         (tasks-per-instance vcpus memory-gb ecs/standard-vcpus ecs/standard-memory)]
     (-> service
-        (assoc :min-cost-month (cost-month (/ min-capacity tasks-per-instance)))
-        (assoc :max-cost-month (cost-month (/ max-capacity tasks-per-instance))))))
+        (assoc :min-cost-month (cost-month min-capacity tasks-per-instance))
+        (assoc :max-cost-month (cost-month max-capacity tasks-per-instance)))))
 
 (defn- calculate-ecs-estimate
   "Parses an ECS terraform file and calculates its minimum and maximum cost per month"
