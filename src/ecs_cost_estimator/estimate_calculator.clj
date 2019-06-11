@@ -20,8 +20,7 @@
   (let [instances-req-by-cpu (/ instance-vcpus task-vcpus)
         instances-req-by-mem (/ instance-mem task-mem)]
     (-> (min instances-req-by-cpu instances-req-by-mem)
-        Math/floor
-        bigdec)))
+        Math/floor)))
 
 (defn calculate-ecs-estimate
   "Calculates an ECS service's minimum and maximum cost per month"
