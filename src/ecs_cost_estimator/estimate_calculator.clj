@@ -9,7 +9,6 @@
   cost per month of the EC2 instance type."
   [capacity tasks-per-instance instance-cost-month]
   (-> (/ capacity tasks-per-instance)
-      float
       Math/ceil
       (* instance-cost-month)
       (round-to-cents)))
