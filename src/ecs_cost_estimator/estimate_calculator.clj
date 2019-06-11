@@ -9,6 +9,7 @@
   cost per month of the EC2 instance type."
   [capacity tasks-per-instance instance-cost-month]
   (-> (/ capacity tasks-per-instance)
+      float
       Math/ceil
       (* instance-cost-month)
       (round-to-cents)))
@@ -20,8 +21,7 @@
   (let [instances-req-by-cpu (/ instance-vcpus task-vcpus)
         instances-req-by-mem (/ instance-mem task-mem)]
     (-> (min instances-req-by-cpu instances-req-by-mem)
-        Math/floor
-        bigdec)))
+        Math/floor)))
 
 (defn calculate-ecs-estimate
   "Calculates an ECS service's minimum and maximum cost per month"
