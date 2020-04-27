@@ -17,5 +17,5 @@
   (/ (* cost-per-hour 24 365) 12))
 
 (def standard-cost-month
-  (-> (get-in specs [:m4.4xlarge :cost :unreserved])
+  (-> (get-in specs [:m4.4xlarge :cost :reserved :standard :one-year :no-upfront])
       cost-per-month))
